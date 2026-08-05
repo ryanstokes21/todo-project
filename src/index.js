@@ -2,7 +2,7 @@ import { loadTasks } from '../storage/storage.js';
 import { addTaskToList, taskList } from './components/task.js';
 import './css/main.css';
 import loadPage from './router/tabs.js';
-import renderTasks from './ui/inbox.js';
+import renderInbox from './ui/inbox.js';
 
 const el = {
   content: document.getElementById('content'),
@@ -23,7 +23,7 @@ const formEl = {
 taskList.push(...loadTasks());
 
 loadPage('dashboard');
-renderTasks();
+renderInbox();
 
 el.navTab.addEventListener('click', (e) => {
   const button = e.target.closest('.nav-button');
@@ -44,10 +44,8 @@ el.createTaskBtn.addEventListener('click', () => {
     formEl.dueDate.value,
     formEl.priority.value,
   );
-  renderTasks();
+  renderInbox();
 
   formEl.form.reset();
   el.dialog.close();
 });
-
-console.log(taskList);

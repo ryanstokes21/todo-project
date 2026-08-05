@@ -1,8 +1,8 @@
 import { taskList } from '../components/task.js';
 
-const taskContainer = document.getElementById('inbox-task-container');
+export default function renderInbox() {
+  const taskContainer = document.getElementById('inbox-task-container');
 
-export default function renderTasks() {
   for (const task of taskList) {
     const taskCard = document.createElement('div');
     taskCard.classList.add('task-card');
