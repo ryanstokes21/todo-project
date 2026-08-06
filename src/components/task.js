@@ -11,6 +11,31 @@ class Task {
     this.priority = priority;
     this.completed = false;
   }
+
+  isToday() {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const taskDate = new Date(`${this.dueDate}T00:00:00`);
+
+    return taskDate.toDateString() === today.toDateString();
+  }
+
+  isUpcoming(days = 5) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const taskDate = new Date(`${this.dueDate}T00:00:00`);
+
+    const endDate = new Date(today);
+    endDate.setDate(endDate.getDate() + days);
+
+    return taskDate > today && taskDate <= endDate;
+  }
+
+  toggleCompleted() {
+    this.completed = !this.completed;
+  }
 }
 
 function addTaskToList(title, description, dueDate, priority) {
@@ -21,6 +46,7 @@ function addTaskToList(title, description, dueDate, priority) {
 }
 
 function renderTasks(container, list) {
+  container.textContent = '';
   for (const task of list) {
     const taskCard = document.createElement('div');
     taskCard.classList.add('task-card');
@@ -31,13 +57,31 @@ function renderTasks(container, list) {
     const description = document.createElement('p');
     description.textContent = task.description;
 
-    const dueDate = document.createElement('p');
-    dueDate.textContent = task.dueDate;
+    const meta = document.createElement('div');
+    meta.classList.add('task-meta');
 
-    const priority = document.createElement('p');
-    priority.textContent = task.priority;
+    const dueDate = document.createElement('span');
+    dueDate.textContent = `📅 ${task.dueDate || 'No due date'}`;
 
-    taskCard.append(title, description, dueDate, priority);
+    const priority = document.createElement('span');
+    priority.textContent = `🔥 ${task.priority}`;
+
+    const actions = document.createElement('div');
+    actions.classList.add('task-actions');
+
+    const completeBtn = document.createElement('button');
+    completeBtn.classList.add('complete-btn');
+    completeBtn.textContent = task.completed ? '✓ Completed' : 'Complete';
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.classList.add('delete-btn');
+    deleteBtn.textContent = 'Delete';
+
+    meta.append(dueDate, priority);
+
+    actions.append(completeBtn, deleteBtn);
+
+    taskCard.append(title, description, meta, actions);
 
     container.append(taskCard);
   }
