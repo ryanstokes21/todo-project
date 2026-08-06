@@ -4,6 +4,7 @@ import './css/main.css';
 import loadPage from './router/tabs.js';
 import renderInbox from './components/inbox.js';
 import renderToday from './components/today.js';
+import renderUpcomingTasks from './components/upcoming.js';
 
 const el = {
   content: document.getElementById('content'),
@@ -26,6 +27,7 @@ taskList.push(...loadTasks());
 loadPage('dashboard');
 renderInbox();
 renderToday();
+renderUpcomingTasks();
 
 el.navTab.addEventListener('click', (e) => {
   const button = e.target.closest('.nav-button');
@@ -47,6 +49,7 @@ el.createTaskBtn.addEventListener('click', () => {
     formEl.priority.value,
   );
   renderInbox();
+  renderToday();
 
   formEl.form.reset();
   el.dialog.close();
