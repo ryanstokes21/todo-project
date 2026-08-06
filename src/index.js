@@ -3,6 +3,7 @@ import { addTaskToList, taskList } from './components/task.js';
 import './css/main.css';
 import loadPage from './router/tabs.js';
 import renderInbox from './ui/inbox.js';
+import renderToday from './ui/today.js';
 
 const el = {
   content: document.getElementById('content'),
@@ -24,6 +25,7 @@ taskList.push(...loadTasks());
 
 loadPage('dashboard');
 renderInbox();
+renderToday();
 
 el.navTab.addEventListener('click', (e) => {
   const button = e.target.closest('.nav-button');
