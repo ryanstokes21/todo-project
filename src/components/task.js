@@ -20,4 +20,27 @@ function addTaskToList(title, description, dueDate, priority) {
   saveTask(taskList);
 }
 
-export { taskList, addTaskToList };
+function renderTasks(container, list) {
+  for (const task of list) {
+    const taskCard = document.createElement('div');
+    taskCard.classList.add('task-card');
+
+    const title = document.createElement('h2');
+    title.textContent = task.title;
+
+    const description = document.createElement('p');
+    description.textContent = task.description;
+
+    const dueDate = document.createElement('p');
+    dueDate.textContent = task.dueDate;
+
+    const priority = document.createElement('p');
+    priority.textContent = task.priority;
+
+    taskCard.append(title, description, dueDate, priority);
+
+    container.append(taskCard);
+  }
+}
+
+export { taskList, addTaskToList, renderTasks };
