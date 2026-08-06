@@ -1,8 +1,6 @@
-import { renderTasks, taskList } from '../components/task.js';
+import { renderTasks, taskList } from './task.js';
 
-export default function renderToday() {
-  const taskContainer = document.getElementById('todays-task-container');
-
+function isToday() {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
@@ -11,6 +9,14 @@ export default function renderToday() {
 
     return taskDate.toDateString() === today.toDateString();
   });
+
+  return todaysTasks;
+}
+
+export default function renderToday() {
+  const taskContainer = document.getElementById('todays-task-container');
+
+  const todaysTasks = isToday();
 
   renderTasks(taskContainer, todaysTasks);
 }

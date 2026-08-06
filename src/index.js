@@ -2,8 +2,8 @@ import { loadTasks } from '../storage/storage.js';
 import { addTaskToList, taskList } from './components/task.js';
 import './css/main.css';
 import loadPage from './router/tabs.js';
-import renderInbox from './ui/inbox.js';
-import renderToday from './ui/today.js';
+import renderInbox from './components/inbox.js';
+import renderToday from './components/today.js';
 
 const el = {
   content: document.getElementById('content'),
