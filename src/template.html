@@ -26,7 +26,7 @@
           <button class="nav-button" data-value="completed">Completed</button>
         </nav>
 
-        <nav class="sidebar-nav">
+        <nav class="sidebar-nav" id="nav-projects-tab">
           <div class="projects-header">
             <div class="nav-header">Projects</div>
 
@@ -38,7 +38,7 @@
               +
             </button>
           </div>
-          <div id="project-list"></div>
+          <div id="project-container"></div>
         </nav>
       </aside>
 
@@ -84,7 +84,7 @@
         </section>
       </main>
 
-      <dialog id="task-dialog" class="task-dialog">
+      <dialog id="task-dialog" class="dialog">
         <form id="task-form">
           <h2>Create Task</h2>
 
@@ -108,6 +108,22 @@
             <button type="button" id="create-task-btn">Create Task</button>
 
             <button type="button" id="close-task-btn">Close</button>
+          </div>
+        </form>
+      </dialog>
+
+      <dialog id="project-dialog" class="dialog">
+        <form id="project-form">
+          <h2>Create Project</h2>
+          <label for="project-name">Project Name:</label>
+          <input type="text" id="project-name" />
+
+          <div class="dialog-actions">
+            <button type="button" id="create-project-btn">
+              Create Project
+            </button>
+
+            <button type="button" id="close-project-btn">Close</button>
           </div>
         </form>
       </dialog>

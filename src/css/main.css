@@ -126,7 +126,7 @@ body {
   padding: 3rem;
 }
 
-.task-dialog {
+.dialog {
   position: fixed;
   inset: 0;
   margin: auto;
@@ -145,30 +145,30 @@ body {
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
 }
 
-.task-dialog::backdrop {
+.dialog::backdrop {
   background: rgba(15, 23, 42, 0.55);
   backdrop-filter: blur(3px);
 }
 
-.task-dialog form {
+.dialog form {
   display: flex;
   flex-direction: column;
   gap: 1.4rem;
 }
 
-.task-dialog h2 {
+.dialog h2 {
   font-size: 2rem;
   margin-bottom: 0.5rem;
 }
 
-.task-dialog label {
+.dialog label {
   font-size: 1.2rem;
   font-weight: 600;
 }
 
-.task-dialog input,
-.task-dialog textarea,
-.task-dialog select {
+.dialog input,
+.dialog textarea,
+.dialog select {
   width: 100%;
 
   padding: 1rem;
@@ -181,14 +181,14 @@ body {
   font-size: 1.4rem;
 }
 
-.task-dialog textarea {
+.dialog textarea {
   min-height: 10rem;
   resize: none;
 }
 
-.task-dialog input:focus,
-.task-dialog textarea:focus,
-.task-dialog select:focus {
+.dialog input:focus,
+.dialog textarea:focus,
+.dialog select:focus {
   outline: none;
   border-color: rgb(47, 210, 255);
   box-shadow: 0 0 0 3px rgba(47, 210, 255, 0.2);
@@ -233,4 +233,9 @@ body {
   gap: 1rem;
 
   margin-top: 1rem;
+}
+
+#project-container {
+  display: flex;
+  flex-direction: column;
 }
