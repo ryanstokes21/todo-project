@@ -1,4 +1,8 @@
 import { saveTask } from '../../storage/storage.js';
+import renderCompleted from './completed.js';
+import renderInbox from './inbox.js';
+import renderToday from './today.js';
+import renderUpcomingTasks from './upcoming.js';
 
 const taskList = [];
 
@@ -45,6 +49,31 @@ function addTaskToList(title, description, dueDate, priority) {
   saveTask(taskList);
 }
 
+function deleteTask(id) {
+  const index = taskList.findIndex((task) => task.id === id);
+
+  if (index !== -1) {
+    taskList.splice(index, 1);
+    saveTask(taskList);
+  }
+}
+
+function completeTask(id) {
+  const task = taskList.find((task) => task.id === id);
+
+  if (!task) return;
+
+  task.toggleCompleted();
+  saveTask(taskList);
+}
+
+function refreshTasks() {
+  renderInbox();
+  renderToday();
+  renderUpcomingTasks();
+  renderCompleted();
+}
+
 function renderTasks(container, list) {
   container.textContent = '';
   for (const task of list) {
@@ -72,10 +101,12 @@ function renderTasks(container, list) {
     const completeBtn = document.createElement('button');
     completeBtn.classList.add('complete-btn');
     completeBtn.textContent = task.completed ? '✓ Completed' : 'Complete';
+    completeBtn.dataset.id = task.id;
 
     const deleteBtn = document.createElement('button');
     deleteBtn.classList.add('delete-btn');
     deleteBtn.textContent = 'Delete';
+    deleteBtn.dataset.id = task.id;
 
     meta.append(dueDate, priority);
 
@@ -85,6 +116,24 @@ function renderTasks(container, list) {
 
     container.append(taskCard);
   }
+
+  container.onclick = (e) => {
+    const id = e.target.dataset.id;
+    const deleteBtn = e.target.classList.contains('delete-btn');
+    const completeBtn = e.target.classList.contains('complete-btn');
+
+    if (!deleteBtn && !completeBtn) return;
+
+    if (deleteBtn) {
+      deleteTask(id);
+      refreshTasks();
+    }
+
+    if (completeBtn) {
+      completeTask(id);
+      refreshTasks();
+    }
+  };
 }
 
-export { taskList, addTaskToList, renderTasks };
+export { taskList, addTaskToList, renderTasks, Task, refreshTasks };

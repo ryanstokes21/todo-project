@@ -3,7 +3,9 @@ import { renderTasks, taskList } from './task.js';
 export default function renderToday() {
   const taskContainer = document.getElementById('todays-task-container');
 
-  const todaysTasks = taskList.filter((task) => task.isToday());
+  const todaysTasks = taskList.filter(
+    (task) => !task.completed && task.isToday(),
+  );
 
   renderTasks(taskContainer, todaysTasks);
 

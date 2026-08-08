@@ -1,10 +1,13 @@
-import { loadTasks } from '../storage/storage.js';
-import { addTaskToList, taskList } from './components/task.js';
 import './css/main.css';
 import loadPage from './router/tabs.js';
-import renderInbox from './components/inbox.js';
-import renderToday from './components/today.js';
-import renderUpcomingTasks from './components/upcoming.js';
+import { loadTasks } from '../storage/storage.js';
+import {
+  Task,
+  addTaskToList,
+  renderTasks,
+  taskList,
+  refreshTasks,
+} from './components/task.js';
 
 const el = {
   content: document.getElementById('content'),
@@ -12,6 +15,8 @@ const el = {
   openDialog: document.getElementById('open-task-dialog'),
   dialog: document.getElementById('task-dialog'),
   createTaskBtn: document.getElementById('create-task-btn'),
+  completeBtn: document.querySelector('.complete-btn'),
+  deleteBtn: document.querySelector('.delete-btn'),
 };
 
 const formEl = {
@@ -22,12 +27,23 @@ const formEl = {
   priority: document.getElementById('priority'),
 };
 
-taskList.push(...loadTasks());
+const savedTasks = loadTasks();
+
+savedTasks.forEach((savedTask) => {
+  const task = Object.assign(
+    new Task(
+      savedTask.title,
+      savedTask.description,
+      savedTask.dueDate,
+      savedTask.priority,
+    ),
+    savedTask,
+  );
+  taskList.push(task);
+});
 
 loadPage('dashboard');
-renderInbox();
-renderToday();
-renderUpcomingTasks();
+refreshTasks();
 
 el.navTab.addEventListener('click', (e) => {
   const button = e.target.closest('.nav-button');
@@ -48,8 +64,7 @@ el.createTaskBtn.addEventListener('click', () => {
     formEl.dueDate.value,
     formEl.priority.value,
   );
-  renderInbox();
-  renderToday();
+  refreshTasks();
 
   formEl.form.reset();
   el.dialog.close();
