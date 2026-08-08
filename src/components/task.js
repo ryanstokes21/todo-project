@@ -7,12 +7,13 @@ import renderUpcomingTasks from './upcoming.js';
 const taskList = [];
 
 class Task {
-  constructor(title, description, dueDate, priority) {
+  constructor(title, description, dueDate, priority, projectId = null) {
     this.id = crypto.randomUUID();
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
     this.priority = priority;
+    this.projectId = projectId;
     this.completed = false;
   }
 
