@@ -10,6 +10,4 @@ export default function renderCompleted() {
     return;
   }
   renderTasks(taskContainer, completed);
-
-  console.log('complete:', completed);
 }

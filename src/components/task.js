@@ -43,8 +43,14 @@ class Task {
   }
 }
 
-function addTaskToList(title, description, dueDate, priority) {
-  const task = new Task(title, description, dueDate, priority);
+function addTaskToList(
+  title,
+  description,
+  dueDate,
+  priority,
+  projectId = null,
+) {
+  const task = new Task(title, description, dueDate, priority, projectId);
 
   taskList.push(task);
   saveTask(taskList);
@@ -75,8 +81,9 @@ function refreshTasks() {
   renderCompleted();
 }
 
-function renderTasks(container, list) {
+function renderTasks(container, list, onChange = refreshTasks) {
   container.textContent = '';
+
   for (const task of list) {
     const taskCard = document.createElement('div');
     taskCard.classList.add('task-card');
@@ -110,11 +117,8 @@ function renderTasks(container, list) {
     deleteBtn.dataset.id = task.id;
 
     meta.append(dueDate, priority);
-
     actions.append(completeBtn, deleteBtn);
-
     taskCard.append(title, description, meta, actions);
-
     container.append(taskCard);
   }
 
@@ -127,13 +131,13 @@ function renderTasks(container, list) {
 
     if (deleteBtn) {
       deleteTask(id);
-      refreshTasks();
     }
 
     if (completeBtn) {
       completeTask(id);
-      refreshTasks();
     }
+
+    onChange();
   };
 }
 

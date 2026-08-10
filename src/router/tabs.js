@@ -1,5 +1,6 @@
-const tabs = document.querySelectorAll('.tab');
 export default function loadPage(page) {
+  const tabs = document.querySelectorAll('.tab');
+
   tabs.forEach((tab) => {
     tab.hidden = true;
   });
